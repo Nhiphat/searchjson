@@ -1,8 +1,10 @@
 package com.viraj.sample.service;
 
 import com.viraj.sample.entity.Employee;
+import com.viraj.sample.entity.EmployeeCriterria;
 import com.viraj.sample.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return (List<Employee>) employeeRepository.findAll();
+    public List<Employee> getAllEmployees(String address, String address2) {
+        EmployeeCriterria employeeCriterria = new EmployeeCriterria();
+        employeeCriterria.setAddress(address);
+        employeeCriterria.setAddress2(address2);
+        Specification<Employee> spec = Specification.where(employeeCriterria);
+        return (List<Employee>) employeeRepository.findAll(spec);
     }
 
     @Override

@@ -31,8 +31,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/getall")
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public List<Employee> getAllEmployees(
+            @RequestParam String address,
+            @RequestParam String address2
+    ) {
+        return employeeService.getAllEmployees(address, address2);
     }
 
     @GetMapping("/getone/{employeeId}")
